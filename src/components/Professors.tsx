@@ -7,22 +7,22 @@ const professors = [
   {
     name: "Tauan Rocha",
     photo: "/prof-tauan-rocha.png",
-    role: "Especialista em Gestão Financeira",
+    role: "Sócio Consultor",
   },
   {
     name: "Matheus Góes",
     photo: "/prof-matheus-goes.png",
-    role: "Consultor de Negócios",
+    role: "Sócio Consultor",
   },
   {
     name: "Bruno Almeida",
     photo: "/prof-bruno-almeida.png",
-    role: "Especialista em Controladoria",
+    role: "Consultor Analista",
   },
   {
     name: "Geslânio Costa",
     photo: "/prof-geslanio-costa.png",
-    role: "Consultor Financeiro",
+    role: "Consultor Analista",
   },
 ];
 
