@@ -144,7 +144,7 @@ export default function Hero() {
               <div className="absolute -inset-4 bg-[#F2B705]/20 rounded-3xl blur-2xl" />
               <div className="relative rounded-2xl overflow-hidden glow-gold">
                 <Image
-                  src="/POST INSTAGRAM - 2026 (2).png"
+                  src="/POST INSTAGRAM - 2026 (5).png"
                   alt="Gestão Financeira para Restaurantes - Curso Presencial"
                   width={520}
                   height={520}
