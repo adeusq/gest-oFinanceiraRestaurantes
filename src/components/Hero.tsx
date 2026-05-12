@@ -78,13 +78,44 @@ export default function Hero() {
               <strong className="text-white">crescimento financeiro</strong>.
             </motion.p>
 
-            {/* Info cards */}
+            {/* CTA principal */}
             <motion.div
               custom={3}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="grid grid-cols-2 gap-3 mb-8"
+              className="relative mb-4"
+            >
+              <span className="absolute inset-0 rounded-2xl bg-[#F2B705] blur-lg opacity-40 animate-pulse" />
+              <motion.a
+                href={PAYMENT_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative flex items-center justify-center w-full bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-2xl px-10 py-6 rounded-2xl transition-all duration-200 shadow-[0_0_40px_rgba(242,183,5,0.5)] hover:shadow-[0_0_60px_rgba(242,183,5,0.8)] gap-3"
+              >
+                🎯 Garantir minha vaga agora
+              </motion.a>
+            </motion.div>
+
+            <motion.p
+              custom={4}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="text-center text-sm text-gray-500 mb-8"
+            >
+              Vagas limitadas • 08/06 • R$ 150,00
+            </motion.p>
+
+            {/* Info cards */}
+            <motion.div
+              custom={5}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="grid grid-cols-2 gap-3"
             >
               {infoCards.map((card) => (
                 <div
@@ -104,36 +135,6 @@ export default function Hero() {
                   </div>
                 </div>
               ))}
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              custom={4}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <div className="relative">
-                <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-md opacity-50 animate-pulse" />
-                <motion.a
-                  href={PAYMENT_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="relative inline-flex items-center justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg px-10 py-5 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(242,183,5,0.4)] hover:shadow-[0_0_50px_rgba(242,183,5,0.7)] hover:-translate-y-1 gap-2"
-                >
-                  🎯 Garantir minha vaga agora
-                </motion.a>
-              </div>
-              <button
-                onClick={scrollToContent}
-                className="inline-flex items-center justify-center gap-2 border border-[#F2B705]/40 hover:border-[#F2B705] text-[#F2B705] font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:bg-[#F2B705]/10 cursor-pointer"
-              >
-                Ver o que vou aprender
-                <ChevronDown size={18} />
-              </button>
             </motion.div>
           </div>
 
