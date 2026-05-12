@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
             <p className="text-sm text-gray-400">
               <span className="text-[#F2B705] font-semibold">Apoio:</span>{" "}
-              Cardápio Web
+              Amel's
             </p>
           </div>
 

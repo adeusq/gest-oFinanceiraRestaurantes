@@ -100,8 +100,6 @@ export default function Professors() {
               {/* Bottom accent */}
               <div className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-[#F2B705] to-[#ffd84d] rounded-b-2xl transition-all duration-500" />
 
-              {/* Corner glow */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-[#F2B705]/5 rounded-full group-hover:bg-[#F2B705]/10 transition-colors duration-300" />
             </motion.div>
           ))}
         </motion.div>
