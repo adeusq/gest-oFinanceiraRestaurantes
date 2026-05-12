@@ -41,20 +41,23 @@ export default function CTAFinal() {
             mais seguras.
           </p>
 
-          <motion.a
-            href={PAYMENT_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="group inline-flex items-center gap-3 bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg px-10 py-5 rounded-xl transition-all duration-200 hover:shadow-[0_0_40px_rgba(242,183,5,0.5)]"
-          >
-            Garantir minha vaga
-            <ArrowRight
-              size={20}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </motion.a>
+          <div className="relative inline-block">
+            <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-lg opacity-60 animate-pulse" />
+            <motion.a
+              href={PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative inline-flex items-center gap-3 bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-xl px-12 py-6 rounded-xl transition-all duration-200 shadow-[0_0_40px_rgba(242,183,5,0.5)] hover:shadow-[0_0_60px_rgba(242,183,5,0.8)]"
+            >
+              🎯 Garantir minha vaga agora
+              <ArrowRight
+                size={22}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </motion.a>
+          </div>
 
           <p className="mt-6 text-sm text-gray-500">
             Vagas limitadas • 08/06 • 9h às 17h • Amels — Heráclito Graça, 400

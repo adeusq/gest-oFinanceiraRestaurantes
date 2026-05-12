@@ -33,7 +33,7 @@ export default function Footer() {
               Informações do evento
             </p>
             {[
-              { icon: Calendar, text: "08/06 • 2025" },
+              { icon: Calendar, text: "08/06 • 2026" },
               { icon: Clock, text: "9h às 17h" },
               { icon: MapPin, text: "Amels — Heráclito Graça, 400" },
             ].map((item) => (

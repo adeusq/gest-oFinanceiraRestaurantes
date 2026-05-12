@@ -114,14 +114,19 @@ export default function Hero() {
               variants={fadeUp}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a
-                href={PAYMENT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-[0_0_30px_rgba(242,183,5,0.5)] hover:-translate-y-0.5"
-              >
-                Garantir minha vaga
-              </a>
+              <div className="relative">
+                <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-md opacity-50 animate-pulse" />
+                <motion.a
+                  href={PAYMENT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative inline-flex items-center justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg px-10 py-5 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(242,183,5,0.4)] hover:shadow-[0_0_50px_rgba(242,183,5,0.7)] hover:-translate-y-1 gap-2"
+                >
+                  🎯 Garantir minha vaga agora
+                </motion.a>
+              </div>
               <button
                 onClick={scrollToContent}
                 className="inline-flex items-center justify-center gap-2 border border-[#F2B705]/40 hover:border-[#F2B705] text-[#F2B705] font-semibold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:bg-[#F2B705]/10 cursor-pointer"

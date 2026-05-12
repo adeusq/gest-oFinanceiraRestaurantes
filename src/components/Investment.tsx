@@ -75,7 +75,7 @@ export default function Investment() {
                 {/* Event info summary */}
                 <div className="flex flex-col gap-3 mb-8">
                   {[
-                    { icon: Calendar, text: "08 de Junho de 2025" },
+                    { icon: Calendar, text: "08 de Junho de 2026" },
                     { icon: Clock, text: "9h às 17h" },
                     { icon: MapPin, text: "Amels — Heráclito Graça, 400" },
                   ].map((item) => (
@@ -94,18 +94,23 @@ export default function Investment() {
                   gestão financeira do seu restaurante.
                 </p>
 
-                <a
-                  href={PAYMENT_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-3 w-full justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-[0_0_30px_rgba(242,183,5,0.5)] hover:-translate-y-0.5"
-                >
-                  Fazer inscrição agora
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </a>
+                <div className="relative">
+                  <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-md opacity-50 animate-pulse" />
+                  <motion.a
+                    href={PAYMENT_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="group relative inline-flex items-center gap-3 w-full justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg px-8 py-5 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(242,183,5,0.4)] hover:shadow-[0_0_50px_rgba(242,183,5,0.7)]"
+                  >
+                    🎯 Fazer inscrição agora
+                    <ArrowRight
+                      size={20}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </motion.a>
+                </div>
               </div>
 
               {/* Right: Includes */}
