@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP_LINK =
-  "https://wa.me/5585999999999?text=Ol%C3%A1%21+Tenho+interesse+no+curso+de+Gest%C3%A3o+Financeira+para+Restaurantes.";
+  "https://wa.me/5585992261287?text=Ol%C3%A1%21+Tenho+interesse+no+curso+de+Gest%C3%A3o+Financeira+para+Restaurantes.";
 
 export default function WhatsAppButton() {
   return (
