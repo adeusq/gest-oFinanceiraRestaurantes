@@ -51,7 +51,7 @@ export default function CTAFinal() {
               whileTap={{ scale: 0.97 }}
               className="group relative inline-flex items-center gap-3 bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-xl px-12 py-6 rounded-xl transition-all duration-200 shadow-[0_0_40px_rgba(242,183,5,0.5)] hover:shadow-[0_0_60px_rgba(242,183,5,0.8)]"
             >
-              🎯 Garantir minha vaga agora
+              Garantir minha vaga agora
               <ArrowRight
                 size={22}
                 className="group-hover:translate-x-1 transition-transform"
