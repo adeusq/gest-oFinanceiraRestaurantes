@@ -95,7 +95,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.97 }}
                 className="relative flex items-center justify-center w-full bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-2xl px-10 py-6 rounded-2xl transition-all duration-200 shadow-[0_0_40px_rgba(242,183,5,0.5)] hover:shadow-[0_0_60px_rgba(242,183,5,0.8)] gap-3"
               >
-                🎯 Garantir minha vaga agora
+                Garantir minha vaga agora
               </motion.a>
             </motion.div>
 

@@ -104,7 +104,7 @@ export default function Investment() {
                     whileTap={{ scale: 0.97 }}
                     className="group relative inline-flex items-center gap-3 w-full justify-center bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg px-8 py-5 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(242,183,5,0.4)] hover:shadow-[0_0_50px_rgba(242,183,5,0.7)]"
                   >
-                    🎯 Fazer inscrição agora
+                    Fazer inscrição agora
                     <ArrowRight
                       size={20}
                       className="group-hover:translate-x-1 transition-transform"

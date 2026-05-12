@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 
 const EVENT_DATE = new Date("2026-06-08T09:00:00");
+const PAYMENT_LINK = "https://www.asaas.com/c/blzjkahdcpacqaa2";
 
 interface TimeLeft {
   days: number;
@@ -29,15 +31,16 @@ function pad(n: number) {
 
 export default function Countdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calcTimeLeft());
-  const [mounted, setMounted] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const timer = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
-    return () => clearInterval(timer);
+    const delay = setTimeout(() => setOpen(true), 1200);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(delay);
+    };
   }, []);
-
-  if (!mounted) return null;
 
   const isOver =
     timeLeft.days === 0 &&
@@ -55,34 +58,79 @@ export default function Countdown() {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-40 bg-[#F2B705] py-2 flex items-center justify-center gap-6"
-    >
-      <span className="text-[#050505] text-xs font-bold uppercase tracking-wider hidden sm:block">
-        O evento começa em:
-      </span>
-      <div className="flex items-center gap-3">
-        {units.map((unit, i) => (
-          <div key={unit.label} className="flex items-center gap-3">
-            <div className="flex flex-col items-center">
-              <span className="text-[#050505] font-black text-lg leading-none tabular-nums">
-                {pad(unit.value)}
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
+          />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none"
+          >
+            <div className="relative bg-[#0d0d0d] border border-[#F2B705]/30 rounded-3xl p-8 sm:p-12 max-w-md w-full text-center shadow-[0_0_60px_rgba(242,183,5,0.2)] pointer-events-auto">
+              {/* Close */}
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Label */}
+              <span className="inline-block text-[#F2B705] text-xs font-bold uppercase tracking-widest mb-4">
+                O evento começa em
               </span>
-              <span className="text-[#050505]/70 text-[10px] font-semibold uppercase">
-                {unit.label}
-              </span>
+
+              {/* Countdown */}
+              <div className="flex items-end justify-center gap-4 mb-8">
+                {units.map((unit, i) => (
+                  <div key={unit.label} className="flex items-end gap-4">
+                    <div className="flex flex-col items-center">
+                      <span className="text-5xl sm:text-6xl font-black text-white tabular-nums leading-none">
+                        {pad(unit.value)}
+                      </span>
+                      <span className="text-[#F2B705]/70 text-xs font-semibold uppercase mt-1">
+                        {unit.label}
+                      </span>
+                    </div>
+                    {i < units.length - 1 && (
+                      <span className="text-[#F2B705] font-black text-4xl leading-none mb-5">:</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="relative">
+                <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-md opacity-40 animate-pulse" />
+                <a
+                  href={PAYMENT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative flex items-center justify-center w-full bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-black text-lg py-4 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(242,183,5,0.4)] hover:shadow-[0_0_50px_rgba(242,183,5,0.7)]"
+                >
+                  Garantir minha vaga
+                </a>
+              </div>
+
+              <p className="mt-4 text-xs text-gray-500">
+                Vagas limitadas • 08/06/2026 • R$ 150,00
+              </p>
             </div>
-            {i < units.length - 1 && (
-              <span className="text-[#050505]/60 font-black text-lg leading-none -mt-3">
-                :
-              </span>
-            )}
-          </div>
-        ))}
-      </div>
-    </motion.div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
