@@ -78,7 +78,7 @@ export default function Countdown() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none"
           >
-            <div className="relative bg-[#0d0d0d] border border-[#F2B705]/30 rounded-3xl p-8 sm:p-12 max-w-md w-full text-center shadow-[0_0_60px_rgba(242,183,5,0.2)] pointer-events-auto">
+            <div className="relative bg-[#0d0d0d] border border-[#F2B705]/30 rounded-3xl p-10 sm:p-16 max-w-2xl w-full text-center shadow-[0_0_60px_rgba(242,183,5,0.2)] pointer-events-auto">
               {/* Close */}
               <button
                 onClick={() => setOpen(false)}
