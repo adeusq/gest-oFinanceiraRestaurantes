@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Calendar, Clock, MapPin, DollarSign, ChevronDown, Tag, X } from "lucide-react";
 
 const PAYMENT_LINK = "https://www.asaas.com/c/blzjkahdcpacqaa2";
@@ -26,7 +26,6 @@ const fadeUp: Variants = {
 };
 
 export default function Hero() {
-  const [showCoupon, setShowCoupon] = useState(false);
   const [couponInput, setCouponInput] = useState("");
   const [couponState, setCouponState] = useState<"idle" | "valid" | "invalid">("idle");
 
@@ -35,7 +34,6 @@ export default function Hero() {
   function applyCoupon() {
     if (couponInput.trim().toUpperCase() === VALID_COUPON) {
       setCouponState("valid");
-      setShowCoupon(false);
     } else {
       setCouponState("invalid");
     }
@@ -44,7 +42,6 @@ export default function Hero() {
   function removeCoupon() {
     setCouponInput("");
     setCouponState("idle");
-    setShowCoupon(false);
   }
 
   return (
@@ -126,64 +123,51 @@ export default function Hero() {
               variants={fadeUp}
               className="mb-6"
             >
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-center text-sm text-gray-500">
-                  Vagas limitadas • 08/06 • {couponState === "valid" ? <span className="line-through">R$ 150,00</span> : "R$ 150,00"}
-                  {couponState === "valid" && <span className="text-green-400 font-semibold ml-1">R$ 135,00</span>}
-                </p>
+              <p className="text-sm text-gray-500 mb-3">
+                Vagas limitadas • 08/06 •{" "}
                 {couponState === "valid" ? (
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs bg-green-400/10 border border-green-400/30 text-green-400 font-bold px-2 py-0.5 rounded-full uppercase">
-                      {VALID_COUPON} -10%
-                    </span>
-                    <button onClick={removeCoupon} className="text-gray-500 hover:text-white transition-colors cursor-pointer">
-                      <X size={13} />
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setShowCoupon(!showCoupon)}
-                    className="flex items-center gap-1 text-xs text-gray-400 hover:text-[#F2B705] transition-colors cursor-pointer"
-                  >
-                    <Tag size={12} />
-                    Cupom
-                  </button>
-                )}
-              </div>
+                  <>
+                    <span className="line-through">R$ 150,00</span>
+                    <span className="text-green-400 font-semibold ml-1">R$ 135,00</span>
+                  </>
+                ) : "R$ 150,00"}
+              </p>
 
-              <AnimatePresence>
-                {showCoupon && couponState !== "valid" && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="overflow-hidden"
+              {couponState === "valid" ? (
+                <div className="flex items-center gap-2 bg-green-400/10 border border-green-400/30 rounded-xl px-4 py-3">
+                  <Tag size={15} className="text-green-400" />
+                  <span className="text-green-400 font-bold text-sm uppercase flex-1">{VALID_COUPON} — 10% de desconto aplicado</span>
+                  <button onClick={removeCoupon} className="text-gray-500 hover:text-white transition-colors cursor-pointer">
+                    <X size={15} />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Tag size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                    <input
+                      type="text"
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value.toUpperCase());
+                        setCouponState("idle");
+                      }}
+                      onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
+                      placeholder="Cupom de desconto"
+                      className="w-full bg-[#121212] border border-[#F2B705]/20 focus:border-[#F2B705]/60 text-white text-sm pl-9 pr-4 py-3 rounded-xl outline-none transition-colors placeholder:text-gray-600 uppercase"
+                    />
+                  </div>
+                  <button
+                    onClick={applyCoupon}
+                    className="bg-[#F2B705]/10 hover:bg-[#F2B705] border border-[#F2B705]/30 hover:border-[#F2B705] text-[#F2B705] hover:text-[#050505] font-bold text-sm px-5 rounded-xl transition-all duration-200 cursor-pointer"
                   >
-                    <div className="flex gap-2 mt-1">
-                      <input
-                        type="text"
-                        value={couponInput}
-                        onChange={(e) => {
-                          setCouponInput(e.target.value.toUpperCase());
-                          setCouponState("idle");
-                        }}
-                        onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
-                        placeholder="Digite o cupom"
-                        className="flex-1 bg-[#121212] border border-[#F2B705]/20 focus:border-[#F2B705]/60 text-white text-sm px-4 py-2.5 rounded-lg outline-none transition-colors placeholder:text-gray-600 uppercase"
-                      />
-                      <button
-                        onClick={applyCoupon}
-                        className="bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-bold text-sm px-4 py-2.5 rounded-lg transition-colors cursor-pointer"
-                      >
-                        Aplicar
-                      </button>
-                    </div>
-                    {couponState === "invalid" && (
-                      <p className="text-red-400 text-xs mt-1">Cupom inválido. Tente novamente.</p>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    Aplicar
+                  </button>
+                </div>
+              )}
+              {couponState === "invalid" && (
+                <p className="text-red-400 text-xs mt-1.5">Cupom inválido. Tente novamente.</p>
+              )}
             </motion.div>
 
             {/* Info cards */}
