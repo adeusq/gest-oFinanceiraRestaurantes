@@ -1,15 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
   Calendar,
   Clock,
   MapPin,
   ArrowRight,
+  Tag,
+  X,
 } from "lucide-react";
 
 const PAYMENT_LINK = "https://www.asaas.com/c/blzjkahdcpacqaa2";
+const COUPON_LINK = "https://www.asaas.com/c/j54s0l01olbjx5lp";
+const VALID_COUPON = "PEKENO";
 
 const includes = [
   "8 módulos de conteúdo prático",
@@ -21,6 +26,26 @@ const includes = [
 ];
 
 export default function Investment() {
+  const [showCoupon, setShowCoupon] = useState(false);
+  const [couponInput, setCouponInput] = useState("");
+  const [couponState, setCouponState] = useState<"idle" | "valid" | "invalid">("idle");
+
+  const activeLink = couponState === "valid" ? COUPON_LINK : PAYMENT_LINK;
+
+  function applyCoupon() {
+    if (couponInput.trim().toUpperCase() === VALID_COUPON) {
+      setCouponState("valid");
+    } else {
+      setCouponState("invalid");
+    }
+  }
+
+  function removeCoupon() {
+    setCouponInput("");
+    setCouponState("idle");
+    setShowCoupon(false);
+  }
+
   return (
     <section id="inscricao" className="py-24 relative overflow-hidden">
       {/* Background decoration */}
@@ -62,18 +87,31 @@ export default function Investment() {
                 <p className="text-gray-400 font-medium mb-3">
                   Valor do investimento
                 </p>
-                <div className="flex items-end gap-2 mb-6">
+                <div className="flex items-end gap-2 mb-1">
                   <span className="text-2xl text-[#F2B705] font-bold">R$</span>
-                  <span className="text-7xl sm:text-8xl font-black text-white leading-none">
+                  <span className={`font-black leading-none transition-all duration-300 ${couponState === "valid" ? "text-5xl sm:text-6xl text-gray-500 line-through" : "text-7xl sm:text-8xl text-white"}`}>
                     150
                   </span>
-                  <span className="text-2xl text-[#F2B705] font-bold mb-2">
+                  <span className={`font-bold mb-2 transition-all duration-300 ${couponState === "valid" ? "text-lg text-gray-500 line-through" : "text-2xl text-[#F2B705]"}`}>
                     ,00
                   </span>
+                  {couponState === "valid" && (
+                    <div className="flex items-end gap-1 ml-2">
+                      <span className="text-2xl text-[#F2B705] font-bold">R$</span>
+                      <span className="text-7xl sm:text-8xl font-black text-white leading-none">135</span>
+                      <span className="text-2xl text-[#F2B705] font-bold mb-2">,00</span>
+                    </div>
+                  )}
                 </div>
 
+                {couponState === "valid" && (
+                  <p className="text-green-400 text-sm font-semibold mb-4">
+                    Cupom aplicado — 10% de desconto
+                  </p>
+                )}
+
                 {/* Event info summary */}
-                <div className="flex flex-col gap-3 mb-8">
+                <div className="flex flex-col gap-3 mb-6">
                   {[
                     { icon: Calendar, text: "08 de Junho de 2026" },
                     { icon: Clock, text: "9h às 17h" },
@@ -89,15 +127,74 @@ export default function Investment() {
                   ))}
                 </div>
 
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
                   Garanta sua vaga e dê o próximo passo para profissionalizar a
                   gestão financeira do seu restaurante.
                 </p>
 
+                {/* Coupon */}
+                <div className="mb-4">
+                  {couponState !== "valid" && (
+                    <button
+                      onClick={() => setShowCoupon(!showCoupon)}
+                      className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-[#F2B705] transition-colors cursor-pointer mb-3"
+                    >
+                      <Tag size={14} />
+                      Tem um cupom de desconto?
+                    </button>
+                  )}
+
+                  <AnimatePresence>
+                    {showCoupon && couponState !== "valid" && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex gap-2 mb-1">
+                          <input
+                            type="text"
+                            value={couponInput}
+                            onChange={(e) => {
+                              setCouponInput(e.target.value.toUpperCase());
+                              setCouponState("idle");
+                            }}
+                            onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
+                            placeholder="Digite o cupom"
+                            className="flex-1 bg-[#0a0a0a] border border-[#F2B705]/20 focus:border-[#F2B705]/60 text-white text-sm px-4 py-2.5 rounded-lg outline-none transition-colors placeholder:text-gray-600 uppercase"
+                          />
+                          <button
+                            onClick={applyCoupon}
+                            className="bg-[#F2B705] hover:bg-[#ffd84d] text-[#050505] font-bold text-sm px-4 py-2.5 rounded-lg transition-colors cursor-pointer"
+                          >
+                            Aplicar
+                          </button>
+                        </div>
+                        {couponState === "invalid" && (
+                          <p className="text-red-400 text-xs">Cupom inválido. Tente novamente.</p>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {couponState === "valid" && (
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs bg-green-400/10 border border-green-400/30 text-green-400 font-bold px-3 py-1 rounded-full uppercase">
+                        {VALID_COUPON}
+                      </span>
+                      <button onClick={removeCoupon} className="text-gray-500 hover:text-white transition-colors cursor-pointer">
+                        <X size={14} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* CTA Button */}
                 <div className="relative">
                   <span className="absolute inset-0 rounded-xl bg-[#F2B705] blur-md opacity-50 animate-pulse" />
                   <motion.a
-                    href={PAYMENT_LINK}
+                    href={activeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.04 }}
