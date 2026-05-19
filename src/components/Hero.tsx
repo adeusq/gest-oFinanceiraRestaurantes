@@ -7,7 +7,7 @@ import { Calendar, Clock, MapPin, DollarSign, ChevronDown, Tag, X } from "lucide
 
 const PAYMENT_LINK = "https://www.asaas.com/c/blzjkahdcpacqaa2";
 const COUPON_LINK = "https://www.asaas.com/c/j54s0l01olbjx5lp";
-const VALID_COUPON = "PEKENO";
+const VALID_COUPONS = ["PEKENO", "PANELA"];
 
 const infoCards = [
   { icon: Calendar, label: "Data", value: "08/06" },
@@ -32,7 +32,7 @@ export default function Hero() {
   const activeLink = couponState === "valid" ? COUPON_LINK : PAYMENT_LINK;
 
   function applyCoupon() {
-    if (couponInput.trim().toUpperCase() === VALID_COUPON) {
+    if (VALID_COUPONS.includes(couponInput.trim().toUpperCase())) {
       setCouponState("valid");
     } else {
       setCouponState("invalid");
@@ -136,7 +136,7 @@ export default function Hero() {
               {couponState === "valid" ? (
                 <div className="flex items-center gap-2 bg-green-400/10 border border-green-400/30 rounded-xl px-4 py-3">
                   <Tag size={15} className="text-green-400" />
-                  <span className="text-green-400 font-bold text-sm uppercase flex-1">{VALID_COUPON} — 10% de desconto aplicado</span>
+                  <span className="text-green-400 font-bold text-sm uppercase flex-1">{couponInput} — 10% de desconto aplicado</span>
                   <button onClick={removeCoupon} className="text-gray-500 hover:text-white transition-colors cursor-pointer">
                     <X size={15} />
                   </button>
